@@ -1074,7 +1074,6 @@ export default function App() {
   }
 
   function nextStep() {
-
     setError("");
 
     if (step < questions.length - 1) {
@@ -1183,14 +1182,14 @@ export default function App() {
 
       <div className="express-shell">
         <nav className="express-nav">
-  <a href="/" className="brand-logo" aria-label="EXPRESS Home">
-    EXPRESS
-  </a>
+          <a href="/" className="brand-logo" aria-label="EXPRESS Home">
+            EXPRESS
+          </a>
 
-  <div className="express-nav-note">
-    Heartfelt, not rehearsed.
-  </div>
-</nav>
+          <div className="express-nav-note">
+            Heartfelt, not rehearsed.
+          </div>
+        </nav>
 
         {view === "home" && (
           <>
@@ -1248,8 +1247,8 @@ export default function App() {
                         onClick={() => selectOccasion(item.id)}
                       >
                         <span className="occasion-icon">
-  <OccasionIcon name={item.icon} />
-</span>
+                          <OccasionIcon name={item.icon} />
+                        </span>
                         <span className="occasion-name">{item.label}</span>
                       </button>
                     ))}
@@ -1328,43 +1327,14 @@ export default function App() {
                   ))}
                 </div>
               ) : currentQuestion.type === "textarea" ? (
-                <><div
-                    className="express-card"
-                    data-palette={selectedPalette.name}
-                    style={{
-                      "--card-bg": selectedPalette.background,
-                      "--card-text": selectedPalette.text,
-                    }}
-                  >
-                    <div className="express-card-kicker">
-                      A little something from the heart
-                    </div>
-
-                    <h3 className="express-card-title">
-                      Words worth sharing
-                    </h3>
-
-                    <div className="express-card-divider" />
-
-                    <div className="express-card-body">
-                      {message}
-                    </div>
-
-                    <div className="express-card-signature">
-                      With warmth, always.
-                    </div>
-
-                    <div className="express-card-footer">
-                      EXPRESS · Words that feel like you
-                    </div>
-                  </div><label className="express-section-label" htmlFor="message-editor">
-                      Make it yours · Edit your message
-                    </label><textarea
-                      id="message-editor"
-                      className="express-message"
-                      value={message}
-                      onChange={(event) => setMessage(event.target.value)}
-                      aria-label="Edit your generated message" /></>
+                <textarea
+                  className="express-field textarea"
+                  value={answers[currentQuestion.id] || ""}
+                  onChange={(event) =>
+                    updateAnswer(currentQuestion.id, event.target.value)
+                  }
+                  placeholder={currentQuestion.placeholder}
+                />
               ) : (
                 <input
                   className="express-field"
