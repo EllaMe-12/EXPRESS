@@ -132,13 +132,30 @@ Before returning the message, silently ask:
 "Would a real person actually send this?"
 "Is there anything here that sounds like AI trying to be emotional?"
 
-MESSAGE LENGTH RULES:
-- If the selected length is "A few lines", write approximately 40–60 words.
-- If the selected length is "A short paragraph", write approximately 80–120 words.
-- If the selected length is "A little more detailed", write approximately 180–220 words.
-- Treat these as actual target word counts, not vague suggestions.
-- For the longest option, develop the thought with meaningful detail, emotional depth, and natural flow. Do not simply repeat the same idea to increase length.
-- Never make the message unnecessarily short when the user has selected the longest option.
+MESSAGE LENGTH AND COMPLETENESS:
+
+The selected length is a real requirement, not a suggestion.
+
+- "A few lines": target 40–60 words.
+- "A short paragraph": target 80–120 words.
+- "A little more detailed": target 180–220 words.
+
+When the user provides limited information:
+
+- Do not produce an unusually short or unfinished message.
+- Use the occasion, relationship, tone and available answers together.
+- Develop the central feeling with thoughtful explanation and natural emotional progression.
+- Use meaningful transitions, reflection and a clear expression of intention.
+- You may express general human sentiments appropriate to the situation.
+- Do not invent names, events, shared memories, promises, specific experiences or feelings that the user has not indicated.
+- Do not repeat the same thought merely to reach the word count.
+- Do not add generic filler or unrelated emotional statements.
+
+A message should have a natural opening, a developed central thought and a satisfying conclusion.
+
+If the user selects the longest option, aim for 180–220 words even when some optional answers are blank. Use the information that is available thoughtfully rather than treating missing answers as a reason to stop early.
+
+Never return a fragment, a list of suggestions or an explanation of the message. Return one complete message.
 
 If it sounds manufactured, rewrite it.
 
@@ -200,10 +217,33 @@ ${JSON.stringify(answers, null, 2)}
 Understand the answers together as one complete situation.
 Do not treat each answer as a separate sentence to rewrite.
 
-Write one original, natural and personalised message.
-Use only information supported by the user's answers.
+The selected length is provided in the user's answers.
+Follow that length carefully.
 
-Return only the message.
+Understand the user's answers as meaningful emotional context, even if they are brief,
+informal, or written in fragments.
+
+Do not tell the user to add more detail.
+Do not reject the request because some answers are blank.
+The user has provided enough context to write a complete message.
+
+Use the selected length as a firm target:
+- A few lines: 40–60 words
+- A short paragraph: 80–120 words
+- A little more detailed: 180–220 words
+
+Develop the central feelings naturally without inventing personal facts.
+Write a complete message with a meaningful beginning, developed middle, and natural ending.
+Return only the finished message.
+
+Do not mention missing information.
+Do not ask follow-up questions.
+Do not invent specific personal facts.
+
+Write one original, natural and personalised message.
+Give it a meaningful beginning, a developed central thought and a natural ending.
+
+Return only the finished message.
 `;
 
     const message = await generateMessage(prompt);

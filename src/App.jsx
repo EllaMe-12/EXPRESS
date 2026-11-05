@@ -3,27 +3,77 @@ import { useEffect, useMemo, useRef, useState } from "react";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const OCCASIONS = [
-  { id: "birthday", label: "Birthday", emoji: "🎂" },
-  { id: "thankyou", label: "Thank you", emoji: "🤍" },
-  { id: "apology", label: "Apology", emoji: "🫶" },
-  { id: "anniversary", label: "Anniversary", emoji: "✨" },
-  { id: "miss-you", label: "I miss you", emoji: "🌙" },
-  { id: "congratulate", label: "Congratulations", emoji: "🎉" },
-  { id: "reject", label: "Say no", emoji: "🕊️" },
-  { id: "comfort", label: "Comfort", emoji: "🌿" },
-  { id: "reconnect", label: "Reconnect", emoji: "💌" },
-  { id: "farewell", label: "Farewell", emoji: "🪽" },
-  { id: "anger", label: "I'm angry", emoji: "🔥" },
-  { id: "hurt", label: "I'm hurt", emoji: "🩹" },
-  { id: "betrayal", label: "Betrayal", emoji: "🥀" },
-  { id: "disappointment", label: "Disappointment", emoji: "🌧️" },
-  { id: "boundaries", label: "Set a boundary", emoji: "🪷" },
-  { id: "difficult", label: "Difficult conversation", emoji: "🕯️" },
-  { id: "love", label: "I love you", emoji: "❤️" },
-  { id: "encourage", label: "Encourage someone", emoji: "🌻" },
-  { id: "celebrate", label: "Celebrate a moment", emoji: "🥂" },
-  { id: "unsure", label: "Something else", emoji: "💭" },
+  { id: "birthday", label: "Birthday", icon: "gift" },
+  { id: "thankyou", label: "Thank you", icon: "heart" },
+  { id: "apology", label: "Apology", icon: "hands" },
+  { id: "anniversary", label: "Anniversary", icon: "rings" },
+  { id: "miss-you", label: "I miss you", icon: "moon" },
+  { id: "congratulate", label: "Congratulations", icon: "award" },
+  { id: "reject", label: "Say no", icon: "dove" },
+  { id: "comfort", label: "Comfort", icon: "leaf" },
+  { id: "reconnect", label: "Reconnect", icon: "envelope" },
+  { id: "farewell", label: "Farewell", icon: "feather" },
+  { id: "anger", label: "I'm angry", icon: "flame" },
+  { id: "hurt", label: "I'm hurt", icon: "bandage" },
+  { id: "betrayal", label: "Betrayal", icon: "rose" },
+  { id: "disappointment", label: "Disappointment", icon: "cloud" },
+  { id: "boundaries", label: "Set a boundary", icon: "shield" },
+  { id: "difficult", label: "Difficult conversation", icon: "candle" },
+  { id: "love", label: "I love you", icon: "heart-filled" },
+  { id: "encourage", label: "Encourage someone", icon: "sun" },
+  { id: "celebrate", label: "Celebrate a moment", icon: "sparkles" },
+  { id: "unsure", label: "Something else", icon: "quill" },
 ];
+
+function OccasionIcon({ name }) {
+  const common = {
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.5,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+  };
+
+  const icons = {
+    gift: <><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M2 8h20v4H2zM12 8v13M12 8H8a2.5 2.5 0 1 1 2.5-2.5C10.5 7 12 8 12 8ZM12 8h4a2.5 2.5 0 1 0-2.5-2.5C13.5 7 12 8 12 8Z"/></>,
+    heart: <path d="M20.8 8.8c0 5.2-8.8 10.2-8.8 10.2S3.2 14 3.2 8.8A4.7 4.7 0 0 1 12 6.2a4.7 4.7 0 0 1 8.8 2.6Z"/>,
+    "heart-filled": <><path d="M20.8 8.8c0 5.2-8.8 10.2-8.8 10.2S3.2 14 3.2 8.8A4.7 4.7 0 0 1 12 6.2a4.7 4.7 0 0 1 8.8 2.6Z" fill="currentColor"/></>,
+    hands: <><path d="M8 12 5 9l-3 3 5 6 4 2 3-2 6-7-3-2-5 4-3-1Z"/><path d="m9 12 3 2 3-2M12 7c1-2 3-3 5-3"/></>,
+    rings: <><circle cx="9" cy="13" r="6"/><circle cx="16" cy="13" r="6"/><path d="m9 3 2-2 2 2-2 2z"/></>,
+    moon: <path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z"/>,
+    award: <><circle cx="12" cy="9" r="7"/><path d="m8 15-1 8 5-3 5 3-1-8M12 5l1.2 2.5 2.8.4-2 2 .5 2.8-2.5-1.3-2.5 1.3.5-2.8-2-2 2.8-.4z"/></>,
+    dove: <><path d="M3 17c5-1 7-5 9-10 2 4 5 6 9 6-3 5-8 7-14 6l-4-2Z"/><path d="m12 7 2-4M7 17l-3 3M16 13l3-2"/></>,
+    leaf: <><path d="M20 4C10 3 4 7 4 14c0 4 3 6 6 6 7 0 10-7 10-16Z"/><path d="M4 21c3-6 7-9 12-12"/></>,
+    envelope: <><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 7 9-7"/></>,
+    feather: <><path d="M20 4C12 2 5 8 5 15c0 3 2 5 5 5 7 0 13-8 10-16Z"/><path d="M3 22 14 10M8 17l-1-4M12 13l4 1"/></>,
+    flame: <path d="M12 22c5 0 8-3 8-8 0-4-3-7-5-10 0 4-2 5-3 6-1-4-3-6-5-8 1 5-3 8-3 12 0 5 3 8 8 8Z"/>,
+    bandage: <><rect x="4" y="4" width="16" height="16" rx="3" transform="rotate(45 12 12)"/><path d="m8 8 8 8M8 16l8-8"/></>,
+    rose: <><path d="M12 21v-9M12 12c-5 0-7-4-4-7 1 3 3 3 4 1 1 2 3 2 4 0 3 3 1 7-4 6Z"/><path d="M12 17c-3-4-6-3-7-1 2 3 5 4 7 1ZM12 17c3-4 6-3 7-1-2 3-5 4-7 1Z"/></>,
+    cloud: <path d="M7 18h11a4 4 0 0 0 .5-8A6.5 6.5 0 0 0 6 9.5 4.3 4.3 0 0 0 7 18Z"/>,
+    shield: <><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></>,
+    candle: <><path d="M8 11h8v11H8zM6 22h12M12 11c-4-3 0-6 0-9 4 3 4 6 0 9Z"/></>,
+    sun: <><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></>,
+    sparkles: <><path d="m12 3 1.5 6.5L20 11l-6.5 1.5L12 19l-1.5-6.5L4 11l6.5-1.5L12 3Z"/><path d="m19 15 .8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z"/></>,
+    quill: <><path d="M20 4C12 3 6 7 6 14c0 3 2 5 5 5 7 0 10-7 9-15Z"/><path d="M3 22 14 11M8 17l-1-4M12 13l4 1"/></>,
+  };
+
+  return (
+    <svg
+      width="34"
+      height="34"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="express-gold-icon"
+    >
+      {icons[name] || icons.sparkles}
+    </svg>
+  );
+}
 
 const QUESTION_FLOWS = {
   birthday: [
@@ -192,6 +242,24 @@ const STYLES = `
 .express-app button { cursor: pointer; }
 
 .express-shell { max-width: 1120px; margin: auto; padding: 30px 28px 70px; }
+
+.express-gold-icon {
+  color: #b18a50;
+  filter: drop-shadow(0 2px 3px #b18a5020);
+  transition: transform .3s ease, color .3s ease;
+}
+
+.express-occasion:hover .express-gold-icon {
+  color: #96703d;
+  transform: translateY(-3px) scale(1.08);
+}
+
+.occasion-icon {
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+  min-height: 34px;
+}
 
 .express-nav {
   display: flex;
@@ -460,6 +528,120 @@ const STYLES = `
 /* Generated message */
 
 .express-result { max-width: 780px; margin: 32px auto 0; }
+/* Luxury message card */
+
+.express-card {
+  --card-bg: #fffaf5;
+  --card-text: #302923;
+
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 680px;
+  min-height: 390px;
+  margin: 22px auto 26px;
+  padding: 58px clamp(25px, 7vw, 76px);
+  background: var(--card-bg);
+  color: var(--card-text);
+  border: 1px solid #d8c19b;
+  border-radius: 5px;
+  box-shadow:
+    0 20px 50px rgba(68, 48, 32, .12),
+    0 3px 9px rgba(68, 48, 32, .05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.express-card::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(177, 138, 80, .48);
+  pointer-events: none;
+}
+
+.express-card::after {
+  content: "✦";
+  position: absolute;
+  top: 22px;
+  color: #b18a50;
+  font-size: 17px;
+}
+
+.express-card-kicker {
+  color: #a17b49;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 27px;
+}
+
+.express-card-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(25px, 4vw, 34px);
+  font-style: italic;
+  font-weight: 400;
+  margin: 0 0 24px;
+  line-height: 1.3;
+}
+
+.express-card-divider {
+  width: 48px;
+  height: 1px;
+  background: #b18a50;
+  margin-bottom: 26px;
+}
+
+.express-card-body {
+  width: 100%;
+  max-width: 490px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 16px;
+  line-height: 2;
+  text-align: center;
+}
+
+.express-card-signature {
+  margin-top: 34px;
+  color: #a17b49;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 17px;
+  font-style: italic;
+}
+
+.express-card-footer {
+  margin-top: 28px;
+  color: #a17b49;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.express-card[data-palette="Midnight"] {
+  border-color: #b18a50;
+}
+
+.express-card[data-palette="Midnight"]::before {
+  border-color: #b18a5080;
+}
+
+@media(max-width: 620px) {
+  .express-card {
+    min-height: 350px;
+    padding: 48px 25px;
+  }
+
+  .express-card-body {
+    font-size: 14px;
+    line-height: 1.85;
+  }
+}
 
 .express-result-top {
   display: flex;
@@ -739,32 +921,42 @@ function downloadMessageCard(message, palette) {
 
   if (!ctx) return;
 
-  const width = 1080;
-  const padding = 100;
-  const fontSize = 40;
-  const lineHeight = 66;
-  const maxTextWidth = width - padding * 2;
+  const width = 1200;
+  const padding = 110;
+  const maxWidth = width - padding * 2;
+
+  const paragraphs = message.trim().split(/\n+/);
+  const fontSize = 34;
+  const lineHeight = 57;
 
   ctx.font = `${fontSize}px Georgia, serif`;
 
-  const words = message.trim().split(/\s+/);
   const lines = [];
-  let currentLine = "";
 
-  words.forEach((word) => {
-    const testLine = currentLine ? `${currentLine} ${word}` : word;
+  paragraphs.forEach((paragraph, index) => {
+    const words = paragraph.trim().split(/\s+/);
+    let line = "";
 
-    if (ctx.measureText(testLine).width > maxTextWidth && currentLine) {
-      lines.push(currentLine);
-      currentLine = word;
-    } else {
-      currentLine = testLine;
+    words.forEach((word) => {
+      const test = line ? `${line} ${word}` : word;
+
+      if (ctx.measureText(test).width > maxWidth && line) {
+        lines.push(line);
+        line = word;
+      } else {
+        line = test;
+      }
+    });
+
+    if (line) lines.push(line);
+
+    if (index !== paragraphs.length - 1) {
+      lines.push("");
     }
   });
 
-  if (currentLine) lines.push(currentLine);
-
-  const height = Math.max(650, padding * 2 + lines.length * lineHeight + 80);
+  const textHeight = lines.length * lineHeight;
+  const height = Math.max(850, textHeight + 500);
 
   canvas.width = width;
   canvas.height = height;
@@ -772,13 +964,60 @@ function downloadMessageCard(message, palette) {
   ctx.fillStyle = palette.background;
   ctx.fillRect(0, 0, width, height);
 
+  // Outer gold border
+  ctx.strokeStyle = "#B18A50";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(30, 30, width - 60, height - 60);
+
+  // Inner delicate border
+  ctx.strokeStyle = "rgba(177,138,80,0.55)";
+  ctx.lineWidth = 1;
+  ctx.strokeRect(46, 46, width - 92, height - 92);
+
+  // Top ornament
+  ctx.fillStyle = "#B18A50";
+  ctx.textAlign = "center";
+  ctx.font = "30px Georgia, serif";
+  ctx.fillText("✦", width / 2, 105);
+
+  // Card heading
+  ctx.fillStyle = "#A17B49";
+  ctx.font = "600 17px Arial, sans-serif";
+  ctx.fillText("A LITTLE SOMETHING FROM THE HEART", width / 2, 160);
+
+  ctx.fillStyle = palette.text;
+  ctx.font = "italic 46px Georgia, serif";
+  ctx.fillText("Words worth sharing", width / 2, 230);
+
+  // Divider
+  ctx.strokeStyle = "#B18A50";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(width / 2 - 35, 270);
+  ctx.lineTo(width / 2 + 35, 270);
+  ctx.stroke();
+
+  // Message text
   ctx.fillStyle = palette.text;
   ctx.font = `${fontSize}px Georgia, serif`;
-  ctx.textBaseline = "top";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  const startY = 330 + Math.max(0, (height - textHeight - 500) / 2);
 
   lines.forEach((line, index) => {
-    ctx.fillText(line, padding, padding + index * lineHeight);
+    if (line) {
+      ctx.fillText(line, width / 2, startY + index * lineHeight, maxWidth);
+    }
   });
+
+  // Signature and footer
+  ctx.fillStyle = "#A17B49";
+  ctx.font = "italic 27px Georgia, serif";
+  ctx.fillText("With warmth, always.", width / 2, height - 160);
+
+  ctx.font = "14px Arial, sans-serif";
+  ctx.fillText("E X P R E S S   ·   WORDS THAT FEEL LIKE YOU", width / 2, height - 105);
 
   const link = document.createElement("a");
   link.download = "express-message-card.png";
@@ -835,13 +1074,6 @@ export default function App() {
   }
 
   function nextStep() {
-    if (
-      currentQuestion?.required &&
-      !String(answers[currentQuestion.id] || "").trim()
-    ) {
-      setError("Add a little detail before continuing, or go back and change your answer.");
-      return;
-    }
 
     setError("");
 
@@ -1015,7 +1247,9 @@ export default function App() {
                         }`}
                         onClick={() => selectOccasion(item.id)}
                       >
-                        <span className="emoji">{item.emoji}</span>
+                        <span className="occasion-icon">
+  <OccasionIcon name={item.icon} />
+</span>
                         <span className="occasion-name">{item.label}</span>
                       </button>
                     ))}
@@ -1094,14 +1328,43 @@ export default function App() {
                   ))}
                 </div>
               ) : currentQuestion.type === "textarea" ? (
-                <textarea
-                  className="express-field textarea"
-                  value={answers[currentQuestion.id] || ""}
-                  onChange={(event) =>
-                    updateAnswer(currentQuestion.id, event.target.value)
-                  }
-                  placeholder={currentQuestion.placeholder}
-                />
+                <><div
+                    className="express-card"
+                    data-palette={selectedPalette.name}
+                    style={{
+                      "--card-bg": selectedPalette.background,
+                      "--card-text": selectedPalette.text,
+                    }}
+                  >
+                    <div className="express-card-kicker">
+                      A little something from the heart
+                    </div>
+
+                    <h3 className="express-card-title">
+                      Words worth sharing
+                    </h3>
+
+                    <div className="express-card-divider" />
+
+                    <div className="express-card-body">
+                      {message}
+                    </div>
+
+                    <div className="express-card-signature">
+                      With warmth, always.
+                    </div>
+
+                    <div className="express-card-footer">
+                      EXPRESS · Words that feel like you
+                    </div>
+                  </div><label className="express-section-label" htmlFor="message-editor">
+                      Make it yours · Edit your message
+                    </label><textarea
+                      id="message-editor"
+                      className="express-message"
+                      value={message}
+                      onChange={(event) => setMessage(event.target.value)}
+                      aria-label="Edit your generated message" /></>
               ) : (
                 <input
                   className="express-field"
