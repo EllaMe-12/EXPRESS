@@ -192,7 +192,14 @@ h1 em, h2 em { color: #bd946d; font-weight: 400; }
   .footer { margin-top: 32px; flex-wrap: wrap; justify-content: center; text-align: center; }
 }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  /* Respect reduced motion globally, but preserve EXPRESS's required opening sequence. */
+  *:not(.express-intro):not(.express-intro *) ,
+  *:not(.express-intro)::before,
+  *:not(.express-intro)::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
 }
 
 /* EXPRESS signature details: a restrained star cursor and floating, warm constellations. */
