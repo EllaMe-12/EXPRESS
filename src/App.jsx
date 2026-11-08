@@ -263,18 +263,19 @@ const STYLES = `
 
 .express-brand-mark {
   display: block;
-  width: 31px;
-  height: 31px;
+  width: 36px;
+  height: 36px;
   flex: 0 0 auto;
   object-fit: contain;
-  margin-right: 10px;
-  filter: drop-shadow(0 1px 1px #49352f14);
+  margin-right: 9px;
+  border-radius: 9px;
+  filter: none;
 }
 
 .brand-logo span {
-  font-size: 1.18rem;
-  letter-spacing: .22em;
-  font-weight: 600;
+  font-size: 1.12rem;
+  letter-spacing: .19em;
+  font-weight: 500;
   color: #59443b;
 }
 
