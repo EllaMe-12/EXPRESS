@@ -1,5 +1,5 @@
 const CACHE_NAME = "express-shell-v1";
-const APP_SHELL = ["/", "/manifest.webmanifest", "/express-mark.svg"];
+const APP_SHELL = ["/", "/manifest.webmanifest", "/express-app-icon.svg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
