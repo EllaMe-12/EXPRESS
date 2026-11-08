@@ -297,6 +297,19 @@ const STYLES = `
 
 .express-nav-note { color: #9a8178; font-size: 12px; letter-spacing: .4px; }
 
+/* Compact install control: leaves the existing page layout untouched. */
+.express-install-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 13px; border: 1px solid #c6a568; border-radius: 999px;
+  background: #fffaf6; color: #87683d; font-size: 12px; font-weight: 600;
+  white-space: nowrap; transition: background .2s ease, transform .2s ease;
+}
+.express-install-btn:hover { background: #f4e9d4; transform: translateY(-1px); }
+.express-install-btn svg { width: 15px; height: 15px; }
+@media(max-width: 620px) {
+  .express-install-btn { padding: 7px 9px; font-size: 11px; }
+}
+
 
 .express-hero { text-align: center; margin: 0 auto 34px; max-width: 720px; }
 
@@ -1103,6 +1116,39 @@ export default function App() {
   const [selectedPalette, setSelectedPalette] = useState(PALETTES[0]);
   const [infoPage, setInfoPage] = useState("about");
 
+  const [installPrompt, setInstallPrompt] = useState(null);
+  const [isInstalled, setIsInstalled] = useState(false);
+
+  useEffect(() => {
+    const onBeforeInstall = (event) => {
+      event.preventDefault();
+      setInstallPrompt(event);
+    };
+    const onInstalled = () => {
+      setIsInstalled(true);
+      setInstallPrompt(null);
+    };
+    window.addEventListener("beforeinstallprompt", onBeforeInstall);
+    window.addEventListener("appinstalled", onInstalled);
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+      setIsInstalled(true);
+    }
+    return () => {
+      window.removeEventListener("beforeinstallprompt", onBeforeInstall);
+      window.removeEventListener("appinstalled", onInstalled);
+    };
+  }, []);
+
+  async function handleInstallClick() {
+    if (!installPrompt) {
+      alert("To install EXPRESS, open your browser menu and choose Install app or Add to Home screen.");
+      return;
+    }
+    installPrompt.prompt();
+    await installPrompt.userChoice;
+    setInstallPrompt(null);
+  }
+
   const occasionTrackRef = useRef(null);
 
   const questions = useMemo(
@@ -1254,8 +1300,19 @@ export default function App() {
             <span>EXPRESS</span>
           </a>
 
-          <div className="express-nav-note">
-            Heartfelt, not rehearsed.
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div className="express-nav-note">
+              Heartfelt, not rehearsed.
+            </div>
+            {!isInstalled && (
+              <button className="express-install-btn" onClick={handleInstallClick} aria-label="Install EXPRESS">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 3v12m0 0 4-4m-4 4-4-4" />
+                  <path d="M5 16v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3" />
+                </svg>
+                Install
+              </button>
+            )}
           </div>
         </nav>
 
