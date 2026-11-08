@@ -1298,7 +1298,21 @@ export default function App() {
       <style>{STYLES}</style>
 
       {/* Four-second dissolving introduction */}
-      <div className="express-intro" aria-hidden="true">
+      <div
+        className="express-intro"
+        aria-hidden="true"
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 1000,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          overflow: "hidden",
+          background: "#fffaf7",
+          pointerEvents: "none",
+        }}
+      >
         <div className="express-intro-fields">
           <i />
           <i />
