@@ -959,6 +959,17 @@ const STYLES = `
 }
 
 /* Keep the branded intro transition intact on every page load. */
+@media (prefers-reduced-motion: reduce) {
+  .express-app .express-intro,
+  .express-app .express-intro::before,
+  .express-app .express-intro::after,
+  .express-app .express-intro *,
+  .express-app .express-intro-fields i {
+    animation-duration: 4s !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+  }
+}
 `;
 
 function getQuestionsForOccasion(occasion) {
