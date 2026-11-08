@@ -805,7 +805,7 @@ const STYLES = `
   .express-footer-links { gap: 10px; }
 }
 
-/* Four-second intro: translucent forms merge into one soft colour field */
+/* Three-second maximum intro: preserve the moving dissolve, shorten only its duration. */
 
 .express-intro {
   position: fixed;
@@ -816,7 +816,7 @@ const STYLES = `
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  animation: express-intro-exit .9s 3.1s cubic-bezier(.7,0,.2,1) forwards;
+  animation: express-intro-exit .5s 2.5s cubic-bezier(.7,0,.2,1) forwards;
 }
 
 .express-intro::before {
@@ -828,7 +828,7 @@ const STYLES = `
     radial-gradient(ellipse at 78% 68%, #d8aaa5a8 0, transparent 42%),
     radial-gradient(ellipse at 58% 8%, #f3dfd4 0, transparent 36%);
   filter: blur(28px);
-  animation: express-fields 4s ease-in-out both;
+  animation: express-fields 2.8s ease-in-out both;
 }
 
 .express-intro::after {
@@ -837,7 +837,7 @@ const STYLES = `
   inset: 0;
   background: linear-gradient(120deg, #fffaf7aa, #f2dfd855, #fffaf7aa);
   opacity: 0;
-  animation: express-veil 1.2s 2.5s ease forwards;
+  animation: express-veil .5s 2.3s ease forwards;
 }
 
 .express-intro-fields {
@@ -853,7 +853,7 @@ const STYLES = `
   border-radius: 46% 54% 62% 38% / 48% 42% 58% 52%;
   background: #e7c2b6a8;
   mix-blend-mode: multiply;
-  animation: express-merge 3.5s ease-in-out both;
+  animation: express-merge 2.8s ease-in-out both;
 }
 
 .express-intro-fields i:nth-child(1) {
@@ -1128,7 +1128,7 @@ export default function App() {
   const [introVisible, setIntroVisible] = useState(true);
 
   useEffect(() => {
-    const introTimer = window.setTimeout(() => setIntroVisible(false), 4000);
+    const introTimer = window.setTimeout(() => setIntroVisible(false), 2500);
     return () => window.clearTimeout(introTimer);
   }, []);
 
@@ -1345,7 +1345,7 @@ export default function App() {
             "#fffaf7",
           pointerEvents: "none",
           opacity: introVisible ? 1 : 0,
-          transition: "opacity 700ms ease",
+          transition: "opacity 500ms ease",
         }}
       >
         <div className="express-intro-fields">
