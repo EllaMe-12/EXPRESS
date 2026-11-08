@@ -261,6 +261,23 @@ const STYLES = `
   min-height: 34px;
 }
 
+.express-brand-mark {
+  display: block;
+  width: 31px;
+  height: 31px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  margin-right: 10px;
+  filter: drop-shadow(0 1px 1px #49352f14);
+}
+
+.brand-logo span {
+  font-size: 1.18rem;
+  letter-spacing: .22em;
+  font-weight: 600;
+  color: #59443b;
+}
+
 .express-nav {
   display: flex;
   align-items: center;
@@ -1230,7 +1247,8 @@ export default function App() {
       <div className="express-shell">
         <nav className="express-nav">
           <a href="/" className="brand-logo" aria-label="EXPRESS Home">
-            EXPRESS
+            <img src="/favicon.svg" alt="" className="express-brand-mark" />
+            <span>EXPRESS</span>
           </a>
 
           <div className="express-nav-note">
