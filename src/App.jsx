@@ -1419,10 +1419,10 @@ export default function App() {
               </button>
             )}
             {showInstallHelp && !isInstalled && (
-              <div role="status" className="express-install-help">
+              <div role="status" className="express-install-help" style={{ position: "absolute", zIndex: 20, right: 0, top: "calc(100% + 10px)", width: "min(300px, 85vw)", padding: "16px", border: "1px solid #e6d5cc", borderRadius: "14px", background: "#fffaf6", color: "#58443b", boxShadow: "0 12px 30px #6c463b18", fontSize: "12px", lineHeight: 1.6 }}>
                 <strong>Install EXPRESS</strong>
-                <p>Chrome hasn’t offered the install prompt yet. Open the browser menu (⋮) and choose “Install EXPRESS” or “Install page as app”.</p>
-                <button type="button" onClick={() => setShowInstallHelp(false)}>Got it</button>
+                <p style={{ margin: "7px 0 10px" }}>Chrome hasn’t offered the install prompt yet. Open the browser menu (⋮) and choose “Install EXPRESS” or “Install page as app”.</p>
+                <button type="button" onClick={() => setShowInstallHelp(false)} style={{ border: 0, borderRadius: "999px", padding: "6px 12px", background: "#f2e2dc", color: "#87675d", cursor: "pointer" }}>Got it</button>
               </div>
             )}
           </div>
