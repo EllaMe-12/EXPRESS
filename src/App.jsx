@@ -775,9 +775,10 @@ const STYLES = `
 }
 .express-info-page ul { padding-left: 20px; }
 .express-info-email { color: #a7756e; text-decoration: underline; }
-.express-footer {
+.express-app .express-footer {
+  display: block;
   text-align: center;
-  margin-top: 54px;
+  margin: 54px auto 0;
   color: #b8a69b;
   font-size: 10px;
   letter-spacing: .7px;
@@ -789,7 +790,8 @@ const STYLES = `
   gap: 15px;
   margin-top: 14px;
 }
-.express-footer-links button {
+.express-app .express-footer-links button {
+  appearance: none;
   border: 0;
   padding: 4px;
   background: transparent;
@@ -1125,6 +1127,12 @@ export default function App() {
 
   const [installPrompt, setInstallPrompt] = useState(null);
   const [isInstalled, setIsInstalled] = useState(false);
+  const [introVisible, setIntroVisible] = useState(true);
+
+  useEffect(() => {
+    const introTimer = window.setTimeout(() => setIntroVisible(false), 4000);
+    return () => window.clearTimeout(introTimer);
+  }, []);
 
   useEffect(() => {
     const onBeforeInstall = (event) => {
@@ -1281,7 +1289,7 @@ export default function App() {
       <style>{STYLES}</style>
 
       {/* Four-second dissolving introduction */}
-      <div className="express-intro" aria-hidden="true">
+      {introVisible && <div className="express-intro" aria-hidden="true">
         <div className="express-intro-fields">
           <i />
           <i />
@@ -1298,7 +1306,7 @@ export default function App() {
             Intention over occasion
           </div>
         </div>
-      </div>
+      </div>}
 
       <div className="express-shell">
         <nav className="express-nav">
