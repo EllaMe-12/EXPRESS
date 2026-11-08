@@ -944,6 +944,11 @@ const STYLES = `
   }
 }
 
+@keyframes express-page-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 /* Responsive */
 
 @media(max-width: 620px) {
@@ -1363,7 +1368,10 @@ export default function App() {
         </div>
       </div>
 
-      <div className="express-shell">
+      <div
+        className="express-shell"
+        style={{ animation: "express-page-fade-in .7s 4s both" }}
+      >
         <nav className="express-nav">
           <a href="/" className="brand-logo" aria-label="EXPRESS Home">
             <img src="/favicon.svg" alt="" className="express-brand-mark" />
