@@ -1165,7 +1165,8 @@ export default function App() {
   const [installPrompt, setInstallPrompt] = useState(
     () => window.__EXPRESS_INSTALL_PROMPT__ || null
   );
-  const [isInstalled, setIsInstalled] = useState(false);\n  const [installNotice, setInstallNotice] = useState("");
+  const [isInstalled, setIsInstalled] = useState(false);
+  const [installNotice, setInstallNotice] = useState("");
   useEffect(() => {
     // main.jsx captures this event before React mounts; adopt it here too.
     if (window.__EXPRESS_INSTALL_PROMPT__) {
