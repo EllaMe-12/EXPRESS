@@ -11,8 +11,8 @@
   "theme_color": "#fffaf5",
   "icons": [
     {
-      "src": "/express-mark.svg",
-      "sizes": "any",
+      "src": "/express-app-icon.svg",
+      "sizes": "64x64",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     }
