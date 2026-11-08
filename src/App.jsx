@@ -958,12 +958,7 @@ const STYLES = `
   .express-rail-arrow { flex-basis: 32px; width: 32px; height: 32px; }
 }
 
-@media(prefers-reduced-motion: reduce) {
-  .express-intro, .express-intro * {
-    animation-duration: .01ms !important;
-    animation-delay: 0ms !important;
-  }
-}
+/* Keep the branded intro transition intact on every page load. */
 `;
 
 function getQuestionsForOccasion(occasion) {
@@ -1127,13 +1122,6 @@ export default function App() {
 
   const [installPrompt, setInstallPrompt] = useState(null);
   const [isInstalled, setIsInstalled] = useState(false);
-  const [introVisible, setIntroVisible] = useState(true);
-
-  useEffect(() => {
-    const introTimer = window.setTimeout(() => setIntroVisible(false), 4000);
-    return () => window.clearTimeout(introTimer);
-  }, []);
-
   useEffect(() => {
     const onBeforeInstall = (event) => {
       event.preventDefault();
@@ -1155,31 +1143,25 @@ export default function App() {
   }, []);
 
   async function handleInstallClick() {
-    if (isInstalled) return;
-
-    // Chromium only exposes the install prompt when the browser considers
-    // the PWA eligible. Other browsers require their native install menu.
-    if (!installPrompt) {
-      const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-      const instructions = isIOS
-        ? "To install EXPRESS on iPhone or iPad, tap Share, then choose Add to Home Screen."
-        : "Your browser has not offered the install prompt yet. In Chrome or Edge, open the browser menu (⋮) and choose Install EXPRESS or Apps > Install this site as an app. On Android, use the menu and choose Install app or Add to Home screen.";
-      window.alert(instructions);
+    const promptEvent = installPrompt || window.__EXPRESS_INSTALL_PROMPT__;
+    if (!promptEvent) {
+      // The browser only offers this prompt when installability checks pass.
+      // Avoid replacing the requested install action with an instruction alert.
+      console.warn("EXPRESS install prompt is not available yet.");
       return;
     }
 
     try {
-      await installPrompt.prompt();
-      const choice = await installPrompt.userChoice;
+      await promptEvent.prompt();
+      const choice = await promptEvent.userChoice;
       if (choice?.outcome === "accepted") setIsInstalled(true);
     } catch (error) {
       console.error("EXPRESS install prompt failed:", error);
-      window.alert("The install prompt could not open. Please use your browser menu to install EXPRESS.");
     } finally {
       setInstallPrompt(null);
+      window.__EXPRESS_INSTALL_PROMPT__ = null;
     }
   }
-
   const occasionTrackRef = useRef(null);
 
   const questions = useMemo(
@@ -1305,7 +1287,7 @@ export default function App() {
       <style>{STYLES}</style>
 
       {/* Four-second dissolving introduction */}
-      {introVisible && <div className="express-intro" aria-hidden="true">
+      <div className="express-intro" aria-hidden="true">
         <div className="express-intro-fields">
           <i />
           <i />
@@ -1322,7 +1304,7 @@ export default function App() {
             Intention over occasion
           </div>
         </div>
-      </div>}
+      </div>
 
       <div className="express-shell">
         <nav className="express-nav">
