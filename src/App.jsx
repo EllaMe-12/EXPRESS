@@ -1681,11 +1681,18 @@ export default function App() {
           </section>
         )}
 
-        <footer className="express-footer">
+        <footer
+          className="express-footer"
+          style={{ display: "block", width: "100%", textAlign: "center", margin: "54px auto 0", color: "#b8a69b", fontSize: "10px", letterSpacing: ".7px" }}
+        >
           EXPRESS · Heartfelt, not rehearsed.
-          <div className="express-footer-links" aria-label="Site information">
+          <div className="express-footer-links" aria-label="Site information" style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "15px", marginTop: "14px" }}>
             {["about", "contact", "privacy", "terms"].map((page) => (
-              <button key={page} onClick={() => { setInfoPage(page); setView("info"); }}>
+              <button
+                key={page}
+                style={{ appearance: "none", border: 0, padding: "4px", background: "transparent", color: "#a18a7f", fontSize: "11px", textDecoration: "underline", textUnderlineOffset: "3px", cursor: "pointer" }}
+                onClick={() => { setInfoPage(page); setView("info"); }}
+              >
                 {page === "about" ? "About" : page === "contact" ? "Contact" : page === "privacy" ? "Privacy" : "Terms"}
               </button>
             ))}
