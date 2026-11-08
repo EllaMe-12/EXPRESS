@@ -1155,13 +1155,29 @@ export default function App() {
   }, []);
 
   async function handleInstallClick() {
+    if (isInstalled) return;
+
+    // Chromium only exposes the install prompt when the browser considers
+    // the PWA eligible. Other browsers require their native install menu.
     if (!installPrompt) {
-      alert("To install EXPRESS, open your browser menu and choose Install app or Add to Home screen.");
+      const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+      const instructions = isIOS
+        ? "To install EXPRESS on iPhone or iPad, tap Share, then choose Add to Home Screen."
+        : "Your browser has not offered the install prompt yet. In Chrome or Edge, open the browser menu (⋮) and choose Install EXPRESS or Apps > Install this site as an app. On Android, use the menu and choose Install app or Add to Home screen.";
+      window.alert(instructions);
       return;
     }
-    installPrompt.prompt();
-    await installPrompt.userChoice;
-    setInstallPrompt(null);
+
+    try {
+      await installPrompt.prompt();
+      const choice = await installPrompt.userChoice;
+      if (choice?.outcome === "accepted") setIsInstalled(true);
+    } catch (error) {
+      console.error("EXPRESS install prompt failed:", error);
+      window.alert("The install prompt could not open. Please use your browser menu to install EXPRESS.");
+    } finally {
+      setInstallPrompt(null);
+    }
   }
 
   const occasionTrackRef = useRef(null);
