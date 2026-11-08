@@ -261,6 +261,23 @@ const STYLES = `
   min-height: 34px;
 }
 
+.express-brand-mark {
+  display: block;
+  width: 31px;
+  height: 31px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  margin-right: 10px;
+  filter: drop-shadow(0 1px 1px #49352f14);
+}
+
+.brand-logo span {
+  font-size: 1.18rem;
+  letter-spacing: .22em;
+  font-weight: 600;
+  color: #59443b;
+}
+
 .express-nav {
   display: flex;
   align-items: center;
@@ -709,12 +726,58 @@ const STYLES = `
 
 .express-loading p { color: #9b8277; font-size: 13px; line-height: 1.8; }
 
+.express-info-page {
+  max-width: 760px;
+  margin: 30px auto 0;
+  padding: clamp(24px, 5vw, 44px);
+  border: 1px solid #eee0d7;
+  border-radius: 26px;
+  background: #fffaf6;
+  box-shadow: 0 18px 55px #49301a08;
+}
+.express-info-page .express-step { margin-bottom: 12px; }
+.express-info-page h1 {
+  margin: 0 0 18px;
+  font: 400 clamp(32px, 5vw, 46px)/1.15 "Playfair Display", Georgia, serif;
+  letter-spacing: -1px;
+}
+.express-info-page h2 {
+  margin: 28px 0 8px;
+  font: 500 18px "DM Sans", sans-serif;
+}
+.express-info-page p, .express-info-page li {
+  color: #8e776c;
+  font-size: 13px;
+  line-height: 1.85;
+}
+.express-info-page ul { padding-left: 20px; }
+.express-info-email { color: #a7756e; text-decoration: underline; }
 .express-footer {
   text-align: center;
   margin-top: 54px;
   color: #b8a69b;
   font-size: 10px;
   letter-spacing: .7px;
+}
+.express-footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 14px;
+}
+.express-footer-links button {
+  border: 0;
+  padding: 4px;
+  background: transparent;
+  color: #a18a7f;
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.express-footer-links button:hover { color: #a7756e; }
+@media (max-width: 560px) {
+  .express-footer-links { gap: 10px; }
 }
 
 /* Four-second intro: translucent forms merge into one soft colour field */
@@ -1035,6 +1098,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedPalette, setSelectedPalette] = useState(PALETTES[0]);
+  const [infoPage, setInfoPage] = useState("about");
 
   const occasionTrackRef = useRef(null);
 
@@ -1183,7 +1247,8 @@ export default function App() {
       <div className="express-shell">
         <nav className="express-nav">
           <a href="/" className="brand-logo" aria-label="EXPRESS Home">
-            EXPRESS
+            <img src="/favicon.svg" alt="" className="express-brand-mark" />
+            <span>EXPRESS</span>
           </a>
 
           <div className="express-nav-note">
@@ -1470,8 +1535,71 @@ export default function App() {
           <div className="express-error">{error}</div>
         )}
 
+        {view === "info" && (
+          <section className="express-info-page">
+            <div className="express-step">EXPRESS · {infoPage.toUpperCase()}</div>
+            {infoPage === "about" && (
+              <>
+                <h1>Words that feel like you.</h1>
+                <p>EXPRESS helps you put what you genuinely feel into words. Choose a moment, share the context in your own way, and let the writing assistant shape a message that you can edit and make your own.</p>
+                <h2>Intention over occasion</h2>
+                <p>A birthday, apology, thank-you or difficult conversation is only the starting point. EXPRESS is built around what you mean and what you want the other person to understand, rather than ready-made greeting-card phrases.</p>
+                <button className="express-btn primary" onClick={() => setView("home")}>Write something heartfelt</button>
+              </>
+            )}
+            {infoPage === "contact" && (
+              <>
+                <h1>Get in touch.</h1>
+                <p>Questions, feedback, or a thought about how EXPRESS could be better? Send a note by email.</p>
+                <p><a className="express-info-email" href="mailto:ellame2048@gmail.com">ellame2048@gmail.com</a></p>
+              </>
+            )}
+            {infoPage === "privacy" && (
+              <>
+                <h1>Your words matter. So does privacy.</h1>
+                <p><strong>Last updated: November 8, 2026</strong></p>
+                <h2>What you provide</h2>
+                <p>When you request a message, the occasion and answers you enter are sent to the EXPRESS backend to generate your result. Avoid entering passwords, financial details, or other highly sensitive information.</p>
+                <h2>AI processing</h2>
+                <p>EXPRESS uses Google Gemini through its backend to generate messages. Your submitted details are included in the request sent to that AI service and may be processed under Google’s applicable terms and privacy practices.</p>
+                <h2>Storage and sharing</h2>
+                <p>The current app code does not include a database for saving your message requests. Generated content is displayed in your browser; you may choose to copy or download it. The app’s hosting providers and AI service may process technical or request data as part of operating the service.</p>
+                <h2>Your choices</h2>
+                <p>Share only what you are comfortable entering. You can edit, copy, download, or simply leave the generated message. For privacy questions, contact <a className="express-info-email" href="mailto:ellame2048@gmail.com">ellame2048@gmail.com</a>.</p>
+                <p>This notice describes the app’s current implementation and may be updated if its features or providers change.</p>
+              </>
+            )}
+            {infoPage === "terms" && (
+              <>
+                <h1>Using EXPRESS.</h1>
+                <p><strong>Last updated: November 8, 2026</strong></p>
+                <h2>Use of the service</h2>
+                <p>EXPRESS is a writing aid designed to help you express personal thoughts. You may use the generated draft, edit it, or choose not to send it. You are responsible for reviewing the content and deciding whether it reflects your intent.</p>
+                <h2>AI-generated content</h2>
+                <p>Messages are generated by an AI service and may be inaccurate, incomplete, or unsuitable for your situation. EXPRESS does not guarantee that a message will produce a particular response or outcome. Do not rely on it for professional, legal, medical, or crisis advice.</p>
+                <h2>Respectful and lawful use</h2>
+                <p>Do not use EXPRESS to create unlawful, threatening, abusive, or harmful content, or to violate another person’s rights.</p>
+                <h2>Availability</h2>
+                <p>The service may change, be interrupted, or become unavailable. It is provided as-is to the extent permitted by applicable law.</p>
+                <h2>Contact</h2>
+                <p>Questions about these terms can be sent to <a className="express-info-email" href="mailto:ellame2048@gmail.com">ellame2048@gmail.com</a>.</p>
+              </>
+            )}
+            <div className="express-actions">
+              <button className="express-btn" onClick={() => setView("home")}>Back to EXPRESS</button>
+            </div>
+          </section>
+        )}
+
         <footer className="express-footer">
           EXPRESS · Heartfelt, not rehearsed.
+          <div className="express-footer-links" aria-label="Site information">
+            {["about", "contact", "privacy", "terms"].map((page) => (
+              <button key={page} onClick={() => { setInfoPage(page); setView("info"); }}>
+                {page === "about" ? "About" : page === "contact" ? "Contact" : page === "privacy" ? "Privacy" : "Terms"}
+              </button>
+            ))}
+          </div>
         </footer>
       </div>
     </div>
