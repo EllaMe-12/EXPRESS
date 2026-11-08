@@ -297,6 +297,19 @@ const STYLES = `
 
 .express-nav-note { color: #9a8178; font-size: 12px; letter-spacing: .4px; }
 
+.express-nav-actions { display: flex; align-items: center; gap: 16px; }
+.express-install-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: 1px solid #c6a568; border-radius: 999px; padding: 10px 16px;
+  background: linear-gradient(135deg, #c6a568, #b58e50); color: #fffdf8;
+  font-size: 12px; font-weight: 600; letter-spacing: .02em;
+  box-shadow: 0 5px 16px rgba(172,136,74,.16);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.express-install-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(172,136,74,.22); }
+.express-install-btn:focus-visible { outline: 2px solid #8f6d36; outline-offset: 3px; }
+.express-install-btn svg { width: 15px; height: 15px; flex: 0 0 auto; }
+
 .express-hero { text-align: center; margin: 0 auto 34px; max-width: 720px; }
 
 .express-eyebrow {
@@ -650,6 +663,10 @@ const STYLES = `
 }
 
 @media(max-width: 620px) {
+  .express-nav-actions { gap: 9px; }
+  .express-nav-note { display: none; }
+  .express-install-btn { padding: 9px 12px; font-size: 11px; }
+ {
   .express-card {
     min-height: 350px;
     padding: 48px 25px;
@@ -1101,6 +1118,49 @@ export default function App() {
   const [selectedPalette, setSelectedPalette] = useState(PALETTES[0]);
   const [infoPage, setInfoPage] = useState("about");
 
+  const [installPrompt, setInstallPrompt] = useState(null);
+  const [isInstalled, setIsInstalled] = useState(false);
+
+  useEffect(() => {
+    const handleInstallPrompt = (event) => {
+      event.preventDefault();
+      setInstallPrompt(event);
+    };
+
+    const handleInstalled = () => {
+      setIsInstalled(true);
+      setInstallPrompt(null);
+    };
+
+    window.addEventListener("beforeinstallprompt", handleInstallPrompt);
+    window.addEventListener("appinstalled", handleInstalled);
+
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+      setIsInstalled(true);
+    }
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handleInstallPrompt);
+      window.removeEventListener("appinstalled", handleInstalled);
+    };
+  }, []);
+
+  async function handleInstallClick() {
+    if (installPrompt) {
+      installPrompt.prompt();
+      const choice = await installPrompt.userChoice;
+      if (choice?.outcome === "accepted") setIsInstalled(true);
+      setInstallPrompt(null);
+      return;
+    }
+
+    alert(
+      "To add EXPRESS to your home screen:\\n\\n" +
+        "Android (Chrome): tap the three dots (⋮) in Chrome, then choose Install app or Add to Home screen.\\n\\n" +
+        "iPhone (Safari): tap Share, then Add to Home Screen."
+    );
+  }
+
   const occasionTrackRef = useRef(null);
 
   const questions = useMemo(
@@ -1252,8 +1312,17 @@ export default function App() {
             <span>EXPRESS</span>
           </a>
 
-          <div className="express-nav-note">
-            Heartfelt, not rehearsed.
+          <div className="express-nav-actions">
+            <div className="express-nav-note">Heartfelt, not rehearsed.</div>
+            {!isInstalled && (
+              <button className="express-install-btn" onClick={handleInstallClick} aria-label="Install EXPRESS on your device">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 3v12m0 0 4-4m-4 4-4-4" />
+                  <path d="M5 16v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3" />
+                </svg>
+                Install EXPRESS
+              </button>
+            )}
           </div>
         </nav>
 
