@@ -1125,6 +1125,13 @@ function downloadMessageCard(message, palette) {
 }
 
 export default function App() {
+  const [introVisible, setIntroVisible] = useState(true);
+
+  useEffect(() => {
+    const introTimer = window.setTimeout(() => setIntroVisible(false), 4000);
+    return () => window.clearTimeout(introTimer);
+  }, []);
+
   const [occasion, setOccasion] = useState("birthday");
   const [search, setSearch] = useState("");
   const [answers, setAnswers] = useState({});
@@ -1320,6 +1327,8 @@ export default function App() {
             "radial-gradient(ellipse at 54% 8%, rgba(240,217,203,.6), transparent 38%)," +
             "#fffaf7",
           pointerEvents: "none",
+          opacity: introVisible ? 1 : 0,
+          transition: "opacity 700ms ease",
         }}
       >
         <div className="express-intro-fields">
@@ -1370,7 +1379,11 @@ export default function App() {
 
       <div
         className="express-shell"
-        style={{ animation: "express-page-fade-in .7s 4s both" }}
+        style={{
+          opacity: introVisible ? 0 : 1,
+          transition: "opacity 700ms ease",
+          position: "relative",
+        }}
       >
         <nav className="express-nav">
           <a href="/" className="brand-logo" aria-label="EXPRESS Home">
