@@ -1143,11 +1143,19 @@ export default function App() {
   const [selectedPalette, setSelectedPalette] = useState(PALETTES[0]);
   const [infoPage, setInfoPage] = useState("about");
 
-  const [installPrompt, setInstallPrompt] = useState(null);
+  const [installPrompt, setInstallPrompt] = useState(
+    () => window.__EXPRESS_INSTALL_PROMPT__ || null
+  );
   const [isInstalled, setIsInstalled] = useState(false);
   useEffect(() => {
+    // main.jsx captures this event before React mounts; adopt it here too.
+    if (window.__EXPRESS_INSTALL_PROMPT__) {
+      setInstallPrompt(window.__EXPRESS_INSTALL_PROMPT__);
+    }
+
     const onBeforeInstall = (event) => {
       event.preventDefault();
+      window.__EXPRESS_INSTALL_PROMPT__ = event;
       setInstallPrompt(event);
     };
     const onInstalled = () => {
@@ -1168,14 +1176,20 @@ export default function App() {
   async function handleInstallClick() {
     const promptEvent = installPrompt || window.__EXPRESS_INSTALL_PROMPT__;
     if (!promptEvent) {
-      // The browser only offers this prompt when installability checks pass.
-      // Avoid replacing the requested install action with an instruction alert.
-      console.warn("EXPRESS install prompt is not available yet.");
+      // A native install prompt is browser-controlled and only exists when
+      // the browser considers the current site installable.
+      console.warn(
+        "EXPRESS cannot show its native install prompt. Check the browser's PWA installability requirements."
+      );
       return;
     }
 
     try {
-      await promptEvent.prompt();
+      // prompt() must be called directly from the user's click gesture.
+      const promptResult = promptEvent.prompt();
+      setInstallPrompt(null);
+      window.__EXPRESS_INSTALL_PROMPT__ = null;
+      await promptResult;
       const choice = await promptEvent.userChoice;
       if (choice?.outcome === "accepted") setIsInstalled(true);
     } catch (error) {
