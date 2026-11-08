@@ -1309,7 +1309,11 @@ export default function App() {
           alignItems: "center",
           justifyContent: "center",
           overflow: "hidden",
-          background: "#fffaf7",
+          background:
+            "radial-gradient(ellipse at 16% 24%, rgba(197,138,130,.28), transparent 42%)," +
+            "radial-gradient(ellipse at 82% 72%, rgba(213,170,163,.34), transparent 46%)," +
+            "radial-gradient(ellipse at 54% 8%, rgba(240,217,203,.6), transparent 38%)," +
+            "#fffaf7",
           pointerEvents: "none",
         }}
       >
@@ -1320,12 +1324,40 @@ export default function App() {
           <i />
         </div>
 
-        <div className="express-intro-content">
-          <div className="express-intro-brand">
+        <div
+          className="express-intro-content"
+          style={{
+            position: "relative",
+            zIndex: 2,
+            textAlign: "center",
+            padding: 28,
+            color: "#5a443b",
+            animation: "express-brand-in 1s .25s both",
+          }}
+        >
+          <div
+            className="express-intro-brand"
+            style={{
+              fontFamily: '"Playfair Display", Georgia, serif',
+              fontSize: "clamp(43px, 8vw, 75px)",
+              color: "#5a443b",
+              letterSpacing: 2,
+              fontWeight: 500,
+            }}
+          >
             EXPRESS
           </div>
 
-          <div className="express-intro-tagline">
+          <div
+            className="express-intro-tagline"
+            style={{
+              color: "#a27d71",
+              marginTop: 13,
+              fontSize: 11,
+              letterSpacing: 2.2,
+              textTransform: "uppercase",
+            }}
+          >
             Intention over occasion
           </div>
         </div>
