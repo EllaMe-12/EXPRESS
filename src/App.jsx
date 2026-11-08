@@ -1176,11 +1176,14 @@ export default function App() {
   async function handleInstallClick() {
     const promptEvent = installPrompt || window.__EXPRESS_INSTALL_PROMPT__;
     if (!promptEvent) {
-      // A native install prompt is browser-controlled and only exists when
-      // the browser considers the current site installable.
-      console.warn(
-        "EXPRESS cannot show its native install prompt. Check the browser's PWA installability requirements."
-      );
+      // Browser install prompts are conditional. Never let the button silently no-op.
+      const userAgent = navigator.userAgent || "";
+      const instructions = /iPhone|iPad|iPod/i.test(userAgent)
+        ? "On iPhone or iPad, open EXPRESS in Safari, tap Share, then choose Add to Home Screen."
+        : /Android/i.test(userAgent)
+          ? "In Chrome, open the ⋮ menu and choose Install app or Add to Home screen."
+          : "In Chrome or Edge, open the ⋮ menu and choose Install EXPRESS or Install page as app. If that option is absent, the browser has not marked the site installable yet.";
+      window.alert(`Install EXPRESS\\n\\n${instructions}`);
       return;
     }
 
