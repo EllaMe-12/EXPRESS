@@ -1147,6 +1147,7 @@ export default function App() {
     () => window.__EXPRESS_INSTALL_PROMPT__ || null
   );
   const [isInstalled, setIsInstalled] = useState(false);
+  const [showInstallHelp, setShowInstallHelp] = useState(false);
   useEffect(() => {
     // main.jsx captures this event before React mounts; adopt it here too.
     if (window.__EXPRESS_INSTALL_PROMPT__) {
@@ -1178,14 +1179,13 @@ export default function App() {
     if (!promptEvent) {
       // A native install prompt is browser-controlled and only exists when
       // the browser considers the current site installable.
-      console.warn(
-        "EXPRESS cannot show its native install prompt. Check the browser's PWA installability requirements."
-      );
+      setShowInstallHelp(true);
       return;
     }
 
     try {
       // prompt() must be called directly from the user's click gesture.
+      setShowInstallHelp(false);
       const promptResult = promptEvent.prompt();
       setInstallPrompt(null);
       window.__EXPRESS_INSTALL_PROMPT__ = null;
@@ -1417,6 +1417,13 @@ export default function App() {
                 </svg>
                 Install
               </button>
+            )}
+            {showInstallHelp && !isInstalled && (
+              <div role="status" className="express-install-help">
+                <strong>Install EXPRESS</strong>
+                <p>Chrome hasn’t offered the install prompt yet. Open the browser menu (⋮) and choose “Install EXPRESS” or “Install page as app”.</p>
+                <button type="button" onClick={() => setShowInstallHelp(false)}>Got it</button>
+              </div>
             )}
           </div>
         </nav>
