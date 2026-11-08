@@ -1,6 +1,6 @@
 # EXPRESS
 
-**Intention over occasion.** EXPRESS helps people turn the feelings and thoughts they want to communicate into personal, editable messages.
+**Intention over occasion.** EXPRESS is an independently operated writing project that helps people turn thoughts and feelings into personal, editable messages.
 
 ## What it does
 
@@ -71,9 +71,17 @@ The API listens on port 5000 by default. The frontend currently uses `http://loc
 
 Deploy the frontend and backend separately if your hosting setup requires it. Configure `VITE_API_URL` on the frontend with the deployed backend origin, and set `GEMINI_API_KEY` securely in the backend environment. Do not commit API keys or the `.env` file.
 
-## Contact
+## Operator and contact
 
-Questions or feedback: **ellame2048@gmail.com**
+EXPRESS is operated independently by its creator (not represented here as a registered company). Questions or feedback: **ellame2048@gmail.com**.
+
+## Current data handling
+
+- The current app has no user-account system or database for saving prompts or generated drafts.
+- A generation request sends the selected occasion and submitted answers to the backend, which forwards the prompt to Google Gemini.
+- No analytics or advertising tracker is intentionally integrated in the current application code reviewed for this project. Hosting and AI providers may still process technical or operational data under their own configurations and policies.
+- Do not submit highly sensitive or confidential information.
+- These statements describe the current implementation only. Update the policy and code before adding accounts, subscriptions, payments, saved history, or tracking.
 
 ## Note
 

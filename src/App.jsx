@@ -263,18 +263,19 @@ const STYLES = `
 
 .express-brand-mark {
   display: block;
-  width: 31px;
-  height: 31px;
+  width: 36px;
+  height: 36px;
   flex: 0 0 auto;
   object-fit: contain;
-  margin-right: 10px;
-  filter: drop-shadow(0 1px 1px #49352f14);
+  margin-right: 9px;
+  border-radius: 9px;
+  filter: none;
 }
 
 .brand-logo span {
-  font-size: 1.18rem;
-  letter-spacing: .22em;
-  font-weight: 600;
+  font-size: 1.12rem;
+  letter-spacing: .19em;
+  font-weight: 500;
   color: #59443b;
 }
 
@@ -1541,9 +1542,9 @@ export default function App() {
             {infoPage === "about" && (
               <>
                 <h1>Words that feel like you.</h1>
-                <p>EXPRESS helps you put what you genuinely feel into words. Choose a moment, share the context in your own way, and let the writing assistant shape a message that you can edit and make your own.</p>
-                <h2>Intention over occasion</h2>
-                <p>A birthday, apology, thank-you or difficult conversation is only the starting point. EXPRESS is built around what you mean and what you want the other person to understand, rather than ready-made greeting-card phrases.</p>
+                <p>EXPRESS — Intention over occasion — is an independently operated writing project created to help people put genuine thoughts and feelings into words. Choose a situation, share the context you are comfortable providing, and shape an AI-assisted draft into a message that feels like your own.</p>
+                <h2>Made to help you express, not replace you</h2>
+                <p>EXPRESS offers writing assistance for celebrations, gratitude, apologies, boundaries, and difficult conversations. The result is a starting draft, not a substitute for your judgment. Read it, edit it, and decide whether it represents what you mean.</p>
                 <button className="express-btn primary" onClick={() => setView("home")}>Write something heartfelt</button>
               </>
             )}
@@ -1556,31 +1557,46 @@ export default function App() {
             )}
             {infoPage === "privacy" && (
               <>
-                <h1>Your words matter. So does privacy.</h1>
-                <p><strong>Last updated: November 8, 2026</strong></p>
-                <h2>What you provide</h2>
-                <p>When you request a message, the occasion and answers you enter are sent to the EXPRESS backend to generate your result. Avoid entering passwords, financial details, or other highly sensitive information.</p>
-                <h2>AI processing</h2>
-                <p>EXPRESS uses Google Gemini through its backend to generate messages. Your submitted details are included in the request sent to that AI service and may be processed under Google’s applicable terms and privacy practices.</p>
-                <h2>Storage and sharing</h2>
-                <p>The current app code does not include a database for saving your message requests. Generated content is displayed in your browser; you may choose to copy or download it. The app’s hosting providers and AI service may process technical or request data as part of operating the service.</p>
-                <h2>Your choices</h2>
-                <p>Share only what you are comfortable entering. You can edit, copy, download, or simply leave the generated message. For privacy questions, contact <a className="express-info-email" href="mailto:ellame2048@gmail.com">ellame2048@gmail.com</a>.</p>
-                <p>This notice describes the app’s current implementation and may be updated if its features or providers change.</p>
+                <h1>Privacy Policy</h1>
+                <p><strong>Effective date: November 8, 2026</strong></p>
+                <p>This notice describes the current version of EXPRESS, an independently operated project. It is intended to explain the information handled when you use the message-writing feature. Please read it before submitting personal details.</p>
+                <h2>Information you enter</h2>
+                <p>When you ask EXPRESS to create a message, the app sends the selected occasion and the answers you provide to its server. Please do not submit passwords, payment-card details, government identification numbers, confidential information, or details about another person that you do not have permission to share.</p>
+                <h2>How your request is used</h2>
+                <p>Your submitted details are used to generate the requested draft. The server sends the prompt and details to Google Gemini, an AI service provided by Google. Google processes that request under its applicable service terms and privacy information. Review Google’s current terms before using the feature.</p>
+                <h2>Storage and retention</h2>
+                <p>The current application code does not connect to a database or implement user accounts to save message requests or generated drafts. The app returns the generated text to your browser; copying or downloading it is your choice. This does not mean that no technical records exist: the website, server, or AI provider may process operational logs or other technical information according to their configurations and policies. I have not independently verified every hosting-provider retention setting.</p>
+                <h2>Cookies, analytics, and advertising</h2>
+                <p>The current application code reviewed for this notice does not intentionally integrate Google Analytics, advertising trackers, or a cookie-based analytics system. Hosting infrastructure may still use essential technical mechanisms or collect service logs. This statement should be updated if tracking or additional third-party services are introduced.</p>
+                <h2>Children and general use</h2>
+                <p>EXPRESS is intended for a general audience. It is not designed to collect children’s personal information. Because the service uses an external AI provider, do not submit a child’s personal details or sensitive information. Before enabling accounts or deliberately targeting children, the service and this notice must be reviewed for applicable child-data requirements and consent processes.</p>
+                <h2>Your choices and privacy requests</h2>
+                <p>You may choose what to enter and can stop using the service at any time. To ask a question or make a privacy-related request, email <a className="express-info-email" href="mailto:ellame2048@gmail.com">ellame2048@gmail.com</a>. As the current app does not provide user accounts or a request-history database, it may not be able to retrieve a past prompt or draft.</p>
+                <h2>Future changes</h2>
+                <p>This policy describes the current, no-account version only. If EXPRESS adds accounts, subscriptions, payments, saved content, or other data processing, this notice and the app’s consent and security practices must be updated before those features launch. Changes to this policy will be reflected here with a revised effective date.</p>
+                <h2>Contact</h2>
+                <p>EXPRESS is operated independently. For privacy questions, contact <a className="express-info-email" href="mailto:ellame2048@gmail.com">ellame2048@gmail.com</a>.</p>
               </>
             )}
             {infoPage === "terms" && (
               <>
-                <h1>Using EXPRESS.</h1>
-                <p><strong>Last updated: November 8, 2026</strong></p>
-                <h2>Use of the service</h2>
-                <p>EXPRESS is a writing aid designed to help you express personal thoughts. You may use the generated draft, edit it, or choose not to send it. You are responsible for reviewing the content and deciding whether it reflects your intent.</p>
-                <h2>AI-generated content</h2>
-                <p>Messages are generated by an AI service and may be inaccurate, incomplete, or unsuitable for your situation. EXPRESS does not guarantee that a message will produce a particular response or outcome. Do not rely on it for professional, legal, medical, or crisis advice.</p>
-                <h2>Respectful and lawful use</h2>
-                <p>Do not use EXPRESS to create unlawful, threatening, abusive, or harmful content, or to violate another person’s rights.</p>
-                <h2>Availability</h2>
-                <p>The service may change, be interrupted, or become unavailable. It is provided as-is to the extent permitted by applicable law.</p>
+                <h1>Terms of Use</h1>
+                <p><strong>Effective date: November 8, 2026</strong></p>
+                <p>These terms apply to your use of EXPRESS — Intention over occasion — an independently operated AI-assisted writing service. By using the service, you agree to these terms. If you do not agree, please do not use it.</p>
+                <h2>What EXPRESS provides</h2>
+                <p>EXPRESS helps create drafts based on the occasion and details you provide. It is a writing aid, not a person, professional adviser, or a guarantee of how another person will react.</p>
+                <h2>Your responsibility</h2>
+                <p>You are responsible for the information you submit, reviewing generated text, editing it before sharing, and deciding whether it is appropriate. Do not submit information you do not have permission to share or information that is highly sensitive.</p>
+                <h2>AI-generated results</h2>
+                <p>Outputs may be inaccurate, incomplete, generic, or unsuitable. EXPRESS does not guarantee any particular quality, outcome, recipient response, or uninterrupted availability. Do not rely on the service for legal, medical, mental-health, emergency, or other professional advice.</p>
+                <h2>Acceptable use</h2>
+                <p>You must not use EXPRESS for unlawful activity, threats, harassment, fraud, impersonation, or to violate another person’s rights. Do not attempt to disrupt, reverse engineer, or misuse the service or its infrastructure.</p>
+                <h2>Intellectual property</h2>
+                <p>You retain responsibility for the material you submit. AI-generated text may not be unique and similar outputs may be generated for other users. To the extent permitted by applicable law and subject to third-party rights, you may use and adapt the output for your purposes.</p>
+                <h2>Service changes and disclaimers</h2>
+                <p>EXPRESS may be changed, suspended, or discontinued. The service is provided on an “as available” basis to the extent permitted by law. Nothing in these terms excludes a consumer right or liability that cannot lawfully be excluded.</p>
+                <h2>Updates</h2>
+                <p>These terms may be updated as the service evolves. The effective date will be changed when an updated version is published. New account, subscription, or payment features will require additional terms before launch.</p>
                 <h2>Contact</h2>
                 <p>Questions about these terms can be sent to <a className="express-info-email" href="mailto:ellame2048@gmail.com">ellame2048@gmail.com</a>.</p>
               </>
