@@ -297,6 +297,13 @@ const STYLES = `
 
 .express-nav-note { color: #9a8178; font-size: 12px; letter-spacing: .4px; }
 
+.express-nav-actions { display: flex; align-items: center; gap: 12px; }
+
+@media(max-width: 620px) {
+  .express-nav-actions { gap: 8px; }
+  .express-nav-note { display: none; }
+}
+
 /* Compact install control: leaves the existing page layout untouched. */
 .express-install-btn {
   display: inline-flex; align-items: center; gap: 7px;
@@ -1300,7 +1307,7 @@ export default function App() {
             <span>EXPRESS</span>
           </a>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <div className="express-nav-actions">
             <div className="express-nav-note">
               Heartfelt, not rehearsed.
             </div>
