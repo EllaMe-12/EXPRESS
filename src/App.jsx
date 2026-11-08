@@ -304,6 +304,25 @@ const STYLES = `
   .express-nav-note { display: none; }
 }
 
+/* Compact install fallback notice: contextual and dismissible. */
+.express-install-notice {
+  position: fixed; z-index: 1200; right: 22px; bottom: 22px;
+  width: min(390px, calc(100vw - 28px)); padding: 16px 42px 16px 18px;
+  border: 1px solid #e6d5cc; border-radius: 16px; background: #fffaf6;
+  color: #58443b; box-shadow: 0 12px 36px #49352f20;
+  font-size: 13px; line-height: 1.6;
+  animation: express-notice-in .22s ease-out both;
+}
+.express-install-notice strong { display: block; margin-bottom: 4px; color: #87683d; }
+.express-install-notice button {
+  position: absolute; top: 8px; right: 10px; border: 0; background: transparent;
+  color: #987f74; font-size: 20px; line-height: 1; padding: 4px;
+}
+@keyframes express-notice-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* Compact install control: leaves the existing page layout untouched. */
 .express-install-btn {
   display: inline-flex; align-items: center; gap: 7px;
@@ -1146,7 +1165,7 @@ export default function App() {
   const [installPrompt, setInstallPrompt] = useState(
     () => window.__EXPRESS_INSTALL_PROMPT__ || null
   );
-  const [isInstalled, setIsInstalled] = useState(false);
+  const [isInstalled, setIsInstalled] = useState(false);\n  const [installNotice, setInstallNotice] = useState("");
   useEffect(() => {
     // main.jsx captures this event before React mounts; adopt it here too.
     if (window.__EXPRESS_INSTALL_PROMPT__) {
@@ -1176,14 +1195,22 @@ export default function App() {
   async function handleInstallClick() {
     const promptEvent = installPrompt || window.__EXPRESS_INSTALL_PROMPT__;
     if (!promptEvent) {
-      // Browser install prompts are conditional. Never let the button silently no-op.
+      // Use a non-blocking in-page fallback and adapt it to the browser.
       const userAgent = navigator.userAgent || "";
+      let isBrave = false;
+      try {
+        isBrave = Boolean(await navigator.brave?.isBrave?.());
+      } catch {
+        isBrave = /Brave/i.test(userAgent);
+      }
       const instructions = /iPhone|iPad|iPod/i.test(userAgent)
-        ? "On iPhone or iPad, open EXPRESS in Safari, tap Share, then choose Add to Home Screen."
-        : /Android/i.test(userAgent)
-          ? "In Chrome, open the ⋮ menu and choose Install app or Add to Home screen."
-          : "In Chrome or Edge, open the ⋮ menu and choose Install EXPRESS or Install page as app. If that option is absent, the browser has not marked the site installable yet.";
-      window.alert(`Install EXPRESS\\n\\n${instructions}`);
+        ? "On iPhone or iPad, use Safari's Share menu, then Add to Home Screen."
+        : isBrave
+          ? "In Brave, open the menu (⋮) and choose Install app. If it isn't listed, Brave hasn't offered installation for this visit yet."
+          : /Android/i.test(userAgent)
+            ? "Open your browser menu and look for Install app or Add to Home screen."
+            : "Open your browser's menu and look for Install app or Install page as app. If it isn't listed, your browser hasn't marked EXPRESS installable yet.";
+      setInstallNotice(instructions);
       return;
     }
 
@@ -1325,8 +1352,15 @@ export default function App() {
   return (
     <div className="express-app">
       <style>{STYLES}</style>
+      {installNotice && (
+        <aside className="express-install-notice" role="status">
+          <strong>Install EXPRESS</strong>
+          {installNotice}
+          <button type="button" onClick={() => setInstallNotice("")} aria-label="Dismiss install instructions">×</button>
+        </aside>
+      )}
 
-      {/* Four-second dissolving introduction */}
+      {/* Three-second animated introduction */}
       <div
         className="express-intro"
         aria-hidden="true"
@@ -1398,7 +1432,7 @@ export default function App() {
         className="express-shell"
         style={{
           opacity: introVisible ? 0 : 1,
-          transition: "opacity 700ms ease",
+          transition: "opacity 500ms ease",
           position: "relative",
         }}
       >
