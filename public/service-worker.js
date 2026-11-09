@@ -1,4 +1,4 @@
-const CACHE_NAME = "express-shell-v1";
+const CACHE_NAME = "express-shell-v2";
 const APP_SHELL = ["/", "/manifest.webmanifest", "/express-app-icon.svg"];
 
 self.addEventListener("install", (event) => {
@@ -20,10 +20,28 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET" || new URL(event.request.url).origin !== self.location.origin) return;
 
-  if (event.request.mode === "navigate") {
+  const requestUrl = new URL(event.request.url);
+  const isAppCode = /\\.(?:js|css)$/.test(requestUrl.pathname);
+
+  // Always fetch app code from the network first so deployed updates (including
+  // the opening animation) are not hidden behind a stale cached bundle.
+  if (isAppCode) {
     event.respondWith(
-      fetch(event.request).catch(() => caches.match("/"))
+      fetch(event.request)
+        .then((response) => {
+          if (response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          }
+          return response;
+        })
+        .catch(() => caches.match(event.request))
     );
+    return;
+  }
+
+  if (event.request.mode === "navigate") {
+    event.respondWith(fetch(event.request).catch(() => caches.match("/")));
     return;
   }
 
