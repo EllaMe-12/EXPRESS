@@ -875,8 +875,15 @@ const STYLES = `
 }
 .express-intro-content {
   position: relative; z-index: 2; text-align: center; padding: 28px;
-  animation: express-opening-rise-v2 1.65s .12s cubic-bezier(.16,.78,.24,1) both;
-  will-change: transform, opacity;
+  opacity: 1;
+}
+.express-intro-brand {
+  animation: express-brand-reveal 1.2s .45s cubic-bezier(.2,.65,.25,1) both;
+  clip-path: inset(100% 0 0 0);
+}
+@keyframes express-brand-reveal {
+  from { clip-path: inset(100% 0 0 0); opacity: .45; }
+  to { clip-path: inset(0 0 0 0); opacity: 1; }
 }
 .express-intro-brand {
   font-family: "Playfair Display", Georgia, serif;
