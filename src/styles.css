@@ -194,9 +194,9 @@ h1 em, h2 em { color: #bd946d; font-weight: 400; }
 }
 @media (prefers-reduced-motion: reduce) {
   /* Respect reduced motion globally, but preserve EXPRESS's required opening sequence. */
-  *:not(.intro):not(.intro *),
-  *:not(.intro):not(.intro *)::before,
-  *:not(.intro):not(.intro *)::after {
+  *:not(.express-intro):not(.express-intro *),
+  *:not(.express-intro):not(.express-intro *)::before,
+  *:not(.express-intro):not(.express-intro *)::after {
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
