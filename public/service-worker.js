@@ -21,7 +21,7 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET" || new URL(event.request.url).origin !== self.location.origin) return;
 
   const requestUrl = new URL(event.request.url);
-  const isAppCode = /\.(?:js|css)$/.test(requestUrl.pathname);
+  const isAppCode = /\\.(?:js|css)$/.test(requestUrl.pathname);
 
   // Always fetch app code from the network first so deployed updates (including
   // the opening animation) are not hidden behind a stale cached bundle.
