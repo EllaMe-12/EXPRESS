@@ -832,7 +832,7 @@ const STYLES = `
   background: #fffaf7;
 }
 .express-intro::before {
-  content: ""; position: absolute; z-index: -2; inset: -28%;
+  content: ""; position: absolute; z-index: 0; inset: -28%;
   background:
     radial-gradient(ellipse at 18% 28%, rgba(231,190,179,.72) 0, transparent 43%),
     radial-gradient(ellipse at 78% 68%, rgba(222,177,170,.64) 0, transparent 46%),
@@ -844,17 +844,17 @@ const STYLES = `
   animation: express-colorflow 5.4s ease-in-out infinite alternate;
 }
 .express-intro::after {
-  content: ""; position: absolute; z-index: -1; inset: -25%;
+  content: ""; position: absolute; z-index: 0; inset: -25%;
   background:
     radial-gradient(ellipse at 25% 55%, rgba(255,255,255,.88), transparent 33%),
     radial-gradient(ellipse at 72% 35%, rgba(250,224,215,.58), transparent 37%);
   filter: blur(30px);
   animation: express-lightveil 4.8s ease-in-out infinite alternate;
 }
-.express-intro-fields { position: absolute; inset: 0; overflow: hidden; opacity: .88; }
+.express-intro-fields { position: absolute; z-index: 1; inset: 0; overflow: hidden; opacity: .88; pointer-events: none; }
 .express-intro-fields i {
   position: absolute; display: block; border-radius: 50%;
-  filter: blur(42px); mix-blend-mode: multiply;
+  filter: blur(42px); mix-blend-mode: multiply; will-change: transform, opacity;
   animation: express-blobflow 6s ease-in-out infinite alternate;
 }
 .express-intro-fields i:nth-child(1) {
@@ -875,7 +875,8 @@ const STYLES = `
 }
 .express-intro-content {
   position: relative; z-index: 2; text-align: center; padding: 28px;
-  animation: express-wordmark-rise 1.35s .18s cubic-bezier(.18,.72,.22,1) both;
+  animation: express-opening-rise-v2 1.65s .12s cubic-bezier(.16,.78,.24,1) both;
+  will-change: transform, opacity;
 }
 .express-intro-brand {
   font-family: "Playfair Display", Georgia, serif;
@@ -1349,7 +1350,6 @@ export default function App() {
             textAlign: "center",
             padding: 28,
             color: "#5a443b",
-            animation: "express-opening-rise-v2 1.65s .12s cubic-bezier(.16,.78,.24,1) both",
           }}
         >
           <div
