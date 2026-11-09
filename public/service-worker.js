@@ -1,5 +1,5 @@
-const CACHE_NAME = "express-shell-v2";
-const APP_SHELL = ["/", "/manifest.webmanifest", "/express-app-icon.svg"];
+const CACHE_NAME = "express-shell-v3";
+const APP_SHELL = ["/", "/manifest.webmanifest", "/express-app-icon.svg?v=5"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -23,8 +23,7 @@ self.addEventListener("fetch", (event) => {
   const requestUrl = new URL(event.request.url);
   const isAppCode = /\\.(?:js|css)$/.test(requestUrl.pathname);
 
-  // Always fetch app code from the network first so deployed updates (including
-  // the opening animation) are not hidden behind a stale cached bundle.
+  // Fetch app code network-first so deployed updates are not hidden behind a stale bundle.
   if (isAppCode) {
     event.respondWith(
       fetch(event.request)
