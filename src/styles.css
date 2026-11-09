@@ -24,7 +24,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
 .app-shell { min-height: 100vh; display: flex; flex-direction: column; opacity: 0; animation: shell-reveal .8s ease 2.8s forwards; }
 @keyframes shell-reveal { to { opacity: 1; } }
 .intro { position: fixed; inset: 0; z-index: 50; background: #fff; display: grid; place-items: center; overflow: hidden; animation: intro-out .8s ease 2.5s forwards; pointer-events: none; }
-.intro-brand { position: relative; z-index: 2; text-align: center; color: #8c7558; opacity: 0; animation: brand-appear 1s ease .8s forwards; }
+.intro-brand { position: relative; z-index: 2; text-align: center; color: #8c7558; opacity: 0; animation: brand-appear 1.25s cubic-bezier(.22,.7,.25,1) .65s forwards; }
 .intro-brand div { font-family: "Playfair Display", Georgia, serif; font-size: clamp(44px, 8vw, 76px); font-weight: 400; font-style: italic; letter-spacing: .13em; }
 .intro-brand span { display: block; margin-top: 7px; font-size: 10px; text-transform: lowercase; letter-spacing: .24em; color: #b39c7b; }
 .intro-orb { position: absolute; border-radius: 50%; opacity: 0; filter: blur(.2px); transform: scale(.25); animation: orb-dissolve 2.8s ease-in-out forwards; }
@@ -32,7 +32,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px
 .orb-two { width: 55vw; height: 55vw; max-width: 700px; max-height: 700px; right: -10%; bottom: -34%; background: radial-gradient(circle, rgba(246,224,153,.58), rgba(246,222,174,.14) 67%, transparent 73%); animation-delay: .25s; }
 .orb-three { width: 34vw; height: 34vw; max-width: 460px; max-height: 460px; left: 35%; top: 30%; background: radial-gradient(circle, rgba(239,193,164,.42), rgba(249,231,205,.12) 65%, transparent 72%); animation-delay: .45s; }
 @keyframes orb-dissolve { 0% { opacity: 0; transform: scale(.2); } 25% { opacity: .95; transform: scale(1.08); } 75% { opacity: .65; transform: scale(1.15); } 100% { opacity: 0; transform: scale(1.45); } }
-@keyframes brand-appear { 0% { opacity: 0; transform: translateY(9px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes brand-appear { 0% { opacity: 0; transform: translateY(42px); } 100% { opacity: 1; transform: translateY(0); } }
 @keyframes intro-out { to { opacity: 0; visibility: hidden; } }
 .topbar { width: min(1220px, calc(100% - 64px)); margin: 0 auto; min-height: 92px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(224,205,181,.45); }
 .brand-lockup { display: flex; flex-direction: column; align-items: flex-start; border: 0; background: transparent; padding: 0; color: inherit; }
