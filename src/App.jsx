@@ -904,6 +904,12 @@ const STYLES = `
   50% { opacity: .78; transform: translate3d(3%,-2%,0) scale(1.06); }
   100% { opacity: .3; transform: translate3d(7%,2%,0) scale(1.12); }
 }
+@keyframes express-opening-rise-v2 {
+  0% { opacity: 0; transform: translate3d(0,72vh,0) scale(.94); }
+  68% { opacity: 1; transform: translate3d(0,-2.2vh,0) scale(1.015); }
+  84% { opacity: 1; transform: translate3d(0,.65vh,0) scale(1); }
+  100% { opacity: 1; transform: translate3d(0,0,0) scale(1); }
+}
 @keyframes express-wordmark-rise {
   0% { opacity: 0; transform: translate3d(0,58vh,0) scale(.98); }
   72% { opacity: 1; transform: translate3d(0,-1.5vh,0) scale(1); }
@@ -1097,7 +1103,7 @@ export default function App() {
   const [introVisible, setIntroVisible] = useState(true);
 
   useEffect(() => {
-    const introTimer = window.setTimeout(() => setIntroVisible(false), 2500);
+    const introTimer = window.setTimeout(() => setIntroVisible(false), 3600);
     return () => window.clearTimeout(introTimer);
   }, []);
 
@@ -1343,7 +1349,7 @@ export default function App() {
             textAlign: "center",
             padding: 28,
             color: "#5a443b",
-            animation: "express-wordmark-rise 1.35s .18s cubic-bezier(.18,.72,.22,1) both",
+            animation: "express-opening-rise-v2 1.65s .12s cubic-bezier(.16,.78,.24,1) both",
           }}
         >
           <div
