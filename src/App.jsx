@@ -824,60 +824,58 @@ const STYLES = `
   .express-footer-links { gap: 10px; }
 }
 
-/* EXPRESS opening: slow, luminous blush-and-cream fluid dissolve. */
+/* EXPRESS opening: animated luminous field with the wordmark rising into place. */
 .express-intro {
   position: fixed; inset: 0; z-index: 1000;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden; isolation: isolate;
   background: #fffaf7;
-  animation: express-intro-exit .55s 2.45s cubic-bezier(.7,0,.2,1) forwards;
 }
 .express-intro::before {
-  content: ""; position: absolute; z-index: -2; inset: -18%;
+  content: ""; position: absolute; z-index: -2; inset: -28%;
   background:
-    radial-gradient(ellipse at 16% 28%, rgba(231,190,179,.66) 0, transparent 42%),
-    radial-gradient(ellipse at 78% 67%, rgba(222,177,170,.58) 0, transparent 44%),
-    radial-gradient(ellipse at 55% 7%, rgba(247,224,211,.86) 0, transparent 39%),
-    radial-gradient(ellipse at 42% 88%, rgba(255,239,222,.9) 0, transparent 44%),
+    radial-gradient(ellipse at 18% 28%, rgba(231,190,179,.72) 0, transparent 43%),
+    radial-gradient(ellipse at 78% 68%, rgba(222,177,170,.64) 0, transparent 46%),
+    radial-gradient(ellipse at 55% 8%, rgba(247,224,211,.9) 0, transparent 40%),
+    radial-gradient(ellipse at 42% 88%, rgba(255,239,222,.94) 0, transparent 45%),
     #fffaf7;
-  filter: blur(25px);
-  transform: scale(1);
-  animation: express-colorflow 3.15s cubic-bezier(.42,0,.58,1) both;
+  filter: blur(22px);
+  background-size: 130% 130%;
+  animation: express-colorflow 5.4s ease-in-out infinite alternate;
 }
 .express-intro::after {
   content: ""; position: absolute; z-index: -1; inset: -25%;
   background:
     radial-gradient(ellipse at 25% 55%, rgba(255,255,255,.88), transparent 33%),
     radial-gradient(ellipse at 72% 35%, rgba(250,224,215,.58), transparent 37%);
-  filter: blur(32px);
-  opacity: 0;
-  animation: express-lightveil 3s ease-in-out both;
+  filter: blur(30px);
+  animation: express-lightveil 4.8s ease-in-out infinite alternate;
 }
-.express-intro-fields { position: absolute; inset: 0; overflow: hidden; opacity: .82; }
+.express-intro-fields { position: absolute; inset: 0; overflow: hidden; opacity: .88; }
 .express-intro-fields i {
   position: absolute; display: block; border-radius: 50%;
-  filter: blur(38px); mix-blend-mode: multiply;
-  animation: express-blobflow 3.2s cubic-bezier(.42,0,.58,1) both;
+  filter: blur(42px); mix-blend-mode: multiply;
+  animation: express-blobflow 6s ease-in-out infinite alternate;
 }
 .express-intro-fields i:nth-child(1) {
   width: 54vw; height: 58vw; left: -20vw; top: -21vw;
-  background: rgba(233,195,183,.48);
+  background: rgba(233,195,183,.5);
 }
 .express-intro-fields i:nth-child(2) {
   width: 62vw; height: 58vw; right: -24vw; bottom: -27vw;
-  background: rgba(221,177,170,.43); animation-delay: .12s;
+  background: rgba(221,177,170,.45); animation-delay: -2s;
 }
 .express-intro-fields i:nth-child(3) {
   width: 39vw; height: 44vw; right: 17%; top: 12%;
-  background: rgba(248,225,209,.6); animation-delay: .22s;
+  background: rgba(248,225,209,.62); animation-delay: -3.1s;
 }
 .express-intro-fields i:nth-child(4) {
   width: 42vw; height: 38vw; left: 16%; bottom: -20%;
-  background: rgba(255,237,218,.7); animation-delay: .32s;
+  background: rgba(255,237,218,.72); animation-delay: -1.4s;
 }
 .express-intro-content {
   position: relative; z-index: 2; text-align: center; padding: 28px;
-  animation: express-brand-in 1.05s .12s cubic-bezier(.2,.7,.2,1) both;
+  animation: express-wordmark-rise 1.35s .18s cubic-bezier(.18,.72,.22,1) both;
 }
 .express-intro-brand {
   font-family: "Playfair Display", Georgia, serif;
@@ -889,32 +887,31 @@ const STYLES = `
 .express-intro-tagline {
   color: #a27d71; margin-top: 13px; font-size: 11px;
   letter-spacing: 2.2px; text-transform: uppercase;
-  animation: express-tagline-in .9s .55s both;
+  animation: express-tagline-in 1s 1s both;
 }
 @keyframes express-colorflow {
-  0% { transform: scale(.92) rotate(-5deg); background-position: 0% 0%; }
-  45% { transform: scale(1.08) rotate(3deg); }
-  100% { transform: scale(1.16) rotate(0); }
+  0% { transform: scale(.98) translate3d(-2%,1%,0) rotate(-4deg); background-position: 0% 15%; }
+  50% { transform: scale(1.08) translate3d(2%,-2%,0) rotate(3deg); background-position: 100% 65%; }
+  100% { transform: scale(1.14) translate3d(-1%,2%,0) rotate(-1deg); background-position: 25% 100%; }
 }
 @keyframes express-blobflow {
-  0% { transform: translate3d(-2vw,2vh,0) scale(.78); opacity: .35; }
-  38% { transform: translate3d(3vw,-2vh,0) scale(1.08); opacity: .78; }
-  72% { transform: translate3d(-1vw,1vh,0) scale(1.15); opacity: .68; }
-  100% { transform: translate3d(2vw,-1vh,0) scale(1.2); opacity: .48; }
+  0% { transform: translate3d(-3vw,2vh,0) scale(.82); opacity: .4; }
+  50% { transform: translate3d(4vw,-3vh,0) scale(1.12); opacity: .82; }
+  100% { transform: translate3d(-1vw,3vh,0) scale(1.22); opacity: .56; }
 }
 @keyframes express-lightveil {
-  0% { opacity: 0; transform: translateX(-5%) scale(.9); }
-  35% { opacity: .75; }
-  75% { opacity: .5; transform: translateX(3%) scale(1.05); }
-  100% { opacity: 0; transform: translateX(7%) scale(1.1); }
+  0% { opacity: .18; transform: translate3d(-5%,1%,0) scale(.9); }
+  50% { opacity: .78; transform: translate3d(3%,-2%,0) scale(1.06); }
+  100% { opacity: .3; transform: translate3d(7%,2%,0) scale(1.12); }
 }
-@keyframes express-brand-in {
-  from { opacity: 0; transform: translateY(9px) scale(.985); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+@keyframes express-wordmark-rise {
+  0% { opacity: 0; transform: translate3d(0,58vh,0) scale(.98); }
+  72% { opacity: 1; transform: translate3d(0,-1.5vh,0) scale(1); }
+  100% { opacity: 1; transform: translate3d(0,0,0) scale(1); }
 }
 @keyframes express-tagline-in {
-  from { opacity: 0; letter-spacing: 3.5px; }
-  to { opacity: 1; letter-spacing: 2.2px; }
+  from { opacity: 0; letter-spacing: 3.5px; transform: translateY(7px); }
+  to { opacity: 1; letter-spacing: 2.2px; transform: translateY(0); }
 }
 @keyframes express-intro-exit {
   to { opacity: 0; visibility: hidden; transform: scale(1.018); pointer-events: none; }
@@ -1314,26 +1311,15 @@ export default function App() {
         </aside>
       )}
 
-      {/* Three-second animated introduction */}
+      {/* Animated EXPRESS opening */}
       <div
         className="express-intro"
         aria-hidden="true"
         style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 1000,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          overflow: "hidden",
-          background:
-            "radial-gradient(ellipse at 16% 24%, rgba(197,138,130,.28), transparent 42%)," +
-            "radial-gradient(ellipse at 82% 72%, rgba(213,170,163,.34), transparent 46%)," +
-            "radial-gradient(ellipse at 54% 8%, rgba(240,217,203,.6), transparent 38%)," +
-            "#fffaf7",
           pointerEvents: "none",
           opacity: introVisible ? 1 : 0,
-          transition: "opacity 500ms ease",
+          visibility: introVisible ? "visible" : "hidden",
+          transition: "opacity 500ms ease, visibility 500ms ease",
         }}
       >
         <div className="express-intro-fields">
@@ -1351,7 +1337,7 @@ export default function App() {
             textAlign: "center",
             padding: 28,
             color: "#5a443b",
-            animation: "express-brand-in 1s .25s both",
+            animation: "express-wordmark-rise 1.35s .18s cubic-bezier(.18,.72,.22,1) both",
           }}
         >
           <div
