@@ -1323,11 +1323,6 @@ export default function App() {
           alignItems: "center",
           justifyContent: "center",
           overflow: "hidden",
-          background:
-            "radial-gradient(ellipse at 16% 24%, rgba(197,138,130,.28), transparent 42%)," +
-            "radial-gradient(ellipse at 82% 72%, rgba(213,170,163,.34), transparent 46%)," +
-            "radial-gradient(ellipse at 54% 8%, rgba(240,217,203,.6), transparent 38%)," +
-            "#fffaf7",
           pointerEvents: "none",
           opacity: introVisible ? 1 : 0,
           transition: "opacity 500ms ease",
@@ -1348,7 +1343,7 @@ export default function App() {
             textAlign: "center",
             padding: 28,
             color: "#5a443b",
-            animation: "express-brand-in 1s .25s both",
+            animation: "express-wordmark-rise 1.35s .18s cubic-bezier(.18,.72,.22,1) both",
           }}
         >
           <div
