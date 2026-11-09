@@ -26,7 +26,7 @@
 ## Requirements
 
 - Node.js (a current LTS release is recommended)
-- A Google Gemini API key for message generation
+- AI Model's API key for message generation
 
 ## Run locally
 
@@ -78,7 +78,7 @@ EXPRESS is operated independently by its creator (not represented here as a regi
 ## Current data handling
 
 - The current app has no user-account system or database for saving prompts or generated drafts.
-- A generation request sends the selected occasion and submitted answers to the backend, which forwards the prompt to Google Gemini.
+- A generation request sends the selected occasion and submitted answers to the backend, which forwards the prompt to the AI Model.
 - No analytics or advertising tracker is intentionally integrated in the current application code reviewed for this project. Hosting and AI providers may still process technical or operational data under their own configurations and policies.
 - Do not submit highly sensitive or confidential information.
 - These statements describe the current implementation only. Update the policy and code before adding accounts, subscriptions, payments, saved history, or tracking.
