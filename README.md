@@ -6,7 +6,7 @@
 
 - Choose a situation or occasion, from celebration to difficult conversations.
 - Answer a few prompts in your own words.
-- Generate a personalized draft with Google Gemini.
+- Generate a personalized draft with an AI Model.
 - Edit, copy, download, or turn the message into a styled card.
 - Browse About, Contact, Privacy, and Terms from the footer.
 
