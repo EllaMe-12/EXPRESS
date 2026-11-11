@@ -690,7 +690,6 @@ const STYLES = `
 }
 
 @media(max-width: 620px) {
- {
   .express-card {
     min-height: 350px;
     padding: 48px 25px;
